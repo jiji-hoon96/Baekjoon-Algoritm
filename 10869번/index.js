@@ -1,3 +1,4 @@
+// 1-9 "사칙연산 10869번"
 let fs = require("fs");
 let input = fs.readFileSync("index.txt").toString().split(" ");
 
