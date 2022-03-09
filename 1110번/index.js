@@ -1,11 +1,7 @@
 //4-3 "더하기 사이클 1110번"
 //문제푸는법:
 //오답이유:
-let input = Number(
-  require("fs")
-    .readFileSync("index.txt" || "/dev/stdin")
-    .toString()
-);
+let input = Number(require("fs").readFileSync("index.txt").toString());
 
 let num = input;
 let sum;
