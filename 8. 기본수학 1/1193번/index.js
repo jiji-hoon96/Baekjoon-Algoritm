@@ -16,9 +16,6 @@ while (true) {
   value++;
 }
 
-//console.log(number); 4
-//console.log(value); 5
-
 if (value % 2 === 1) {
   console.log(`${value - (number - 1)}/${1 + number - 1}`);
 } else {
