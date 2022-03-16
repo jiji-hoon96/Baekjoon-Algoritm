@@ -5,59 +5,37 @@
 */
 //오답이유: 에라토스테네스의 체 방법으로 소수를 구하는 문제
 
-let input = require("fs")
+const input = require("fs")
   .readFileSync("index.txt")
   .toString()
-  .split(" ")
-  .map((x) => +x);
+  .trim()
+  .split(" ");
 
-let arr = [];
+let N = Number(input[0]);
+let M = Number(input[1]);
+let isPrimeNumber = Array(M + 1).fill(true); // 0부터 M까지 true로 채운배열
+isPrimeNumber[0] = isPrimeNumber[1] = false; // 0 과 1은 소수가 아니므로 false로 바꿔준다.
 
-for (let i = input[0]; i <= input[1]; i++) {
-  arr.push(i);
-}
-
-function solution(n) {
-  if (n < 2) {
-    return;
-  }
-  let newArr = 0;
-  for (let i = 2; i < n; i++) {
-    if (n % i === 0) {
-      return;
+function result() {
+  // 2부터 시작. 주어진값 N의 제곱근까지 i의 배수들을 모두 false로 만들어준다(i는 여전히 true)
+  for (let i = 2; i <= Math.ceil(Math.sqrt(M)); i++) {
+    if (isPrimeNumber[i]) {
+      let m = 2; // 배수들을 구하기위해 곱해줄 수.
+      while (i * m <= M) {
+        isPrimeNumber[i * m] = false; // i의 배수들을 false로 바꾼다.
+        m++; // i * m은 초기에 2 * 2 이고 m++ 해줌으로써 i + m은 2 * 3으로 바뀐다.
+      }
     }
   }
-  newArr += n;
-  console.log(newArr);
-}
 
-for (i = 0; i < arr.length; i++) {
-  solution(arr[i]);
-}
-
-/*
-2. 푸는 방법 
-var fs = require('fs');
-var inputs = fs.readFileSync('/dev/stdin').toString().split(' ');
-var a = Number(inputs[0]);
-var b = Number(inputs[1]);
-var arr =[];
-var answer = '';
-for(var i=0; i<=b; i++){
-    arr.push(true);
-}
-arr[0] = false;
-arr[1] = false;
-
-for(var m=2; m<=b; m++){
-    if(arr[m]){
-        for(var n=2; n<=b/m; n++){
-            arr[m*n] = false;
-        }
+  const results = []; // 결과값을 담을 배열.
+  for (let i = N; i <= M; i++) {
+    // N부터 M까지의 숫자 i가 소수인지 아닌지 확인하는 for문
+    if (isPrimeNumber[i]) {
+      results.push(i); // i가 소수라면 results배열에 추가시켜준다.
     }
+  }
+  console.log(results.join("\n"));
 }
-for(var j=a; j<=b; j++){
-    if(arr[j]) answer += j + '\n';
-}
-console.log(answer.trim())
-*/
+
+result();
